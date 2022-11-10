@@ -70,19 +70,33 @@ app.post('/services',async (req,res)=>{
 
 
 //reviews
+
+app.get('/reviews',async(req,res)=>{
+
+const query ={}
+
+const cursor =reviewCollection.find(query);
+const services =await cursor.toArray();
+res.send(services);
+
+
+})
+
 app.get('/myreviews',async(req,res)=>{
 let query={};
 
-    if
-    
-    (req.query.email){
+    if(req.query.email)
+    {
     query={
     email:req.query.email
-      }
+          }
     }
+    const options = {
+      sort: { createdTime: -1 },
+    };
 
 
-const cursor= reviewCollection.find(query);
+const cursor= reviewCollection.find(query,options);
 const review = await cursor.toArray();
 res.send(review);
 
@@ -109,7 +123,10 @@ const result = await reviewCollection.deleteOne(query);
 res.send(result);
 
 
+
+
 })
+
 
 
 
