@@ -104,7 +104,14 @@ res.send(review);
 
 });
 
+app.post('/myreviews', async(req,res)=>{
 
+    const review=req.body;
+    const result =await reviewCollection.insertOne(review);
+    res.send(result);
+
+
+});
 
 //delete
 
