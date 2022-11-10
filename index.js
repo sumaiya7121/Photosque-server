@@ -127,7 +127,23 @@ res.send(result);
 
 })
 
-
+// update review API start
+app.patch("/reviews/:id", async (req, res) => {
+    const id = req.params.id;
+    const filter = { _id: ObjectId(id) };
+    const previousReview = req.body;
+    const updatedReview = {
+      $set: {
+        review: previousReview.review,
+        username: previousReview.username,
+        photoURL: previousReview.photoURL,
+        useremail: previousReview.useremail,
+        ratings: previousReview.ratings,
+      },
+    };
+    const result = await reviewsCollection.updateOne(filter, updatedReview);
+    res.send(result);
+  });
 
 
 
